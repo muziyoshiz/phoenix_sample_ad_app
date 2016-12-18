@@ -19,7 +19,7 @@ defmodule PhoenixSampleAdApp.Mixfile do
   def application do
     [mod: {PhoenixSampleAdApp, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :cachex]]
+                    :phoenix_ecto, :postgrex, :cachex, :logger_file_backend]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,8 @@ defmodule PhoenixSampleAdApp.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:cachex, "~> 2.0"}]
+     {:cachex, "~> 2.0"},
+     {:logger_file_backend, "~> 0.0.9"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

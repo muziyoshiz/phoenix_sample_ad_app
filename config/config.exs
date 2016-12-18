@@ -18,8 +18,23 @@ config :phoenix_sample_ad_app, PhoenixSampleAdApp.Endpoint,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
+#config :logger, :console,
+#  format: "$time $metadata[$level] $message\n",
+#  metadata: [:request_id]
+
+config :logger,
+  backends: [{LoggerFileBackend, :access_log}, {LoggerFileBackend, :debug_log}]
+
+config :logger, :access_log,
+  path: "log/access.log",
+  level: :info,
+  format: "$date $time\t$message\n",
+  metadata_filter: [access_log: true]
+
+config :logger, :debug_log,
+  path: "log/debug.log",
+  level: :debug,
+  format: "$date $time $metadata[$level] $message\n",
   metadata: [:request_id]
 
 # Import environment specific config. This must remain at the bottom

@@ -3,6 +3,9 @@ defmodule PhoenixSampleAdApp.SampleController do
   require Logger
 
   def index(conn, %{"id" => id, "callback" => callback}) do
+    # Record access log into log file
+    Logger.info("#{id}\t#{callback}", access_log: true)
+
     urls = case Cachex.get(:ad_cache, id) do
       { :missing, _ } ->
         Logger.debug "Failed to read from cache"
