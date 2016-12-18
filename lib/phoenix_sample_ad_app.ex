@@ -14,6 +14,9 @@ defmodule PhoenixSampleAdApp do
       supervisor(PhoenixSampleAdApp.Endpoint, []),
       # Start your own worker by calling: PhoenixSampleAdApp.Worker.start_link(arg1, arg2, arg3)
       # worker(PhoenixSampleAdApp.Worker, [arg1, arg2, arg3]),
+
+      # Start Cachex
+      worker(Cachex, [:ad_cache, []])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
