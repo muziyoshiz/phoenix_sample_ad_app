@@ -20,7 +20,9 @@ defmodule PhoenixSampleAdApp.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PhoenixSampleAdApp do
-  #   pipe_through :api
-  # end
+  scope "/api", PhoenixSampleAdApp do
+    pipe_through :api
+
+    get "/sample.js", SampleController, :index
+  end
 end
