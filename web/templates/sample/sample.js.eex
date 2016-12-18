@@ -1,1 +1,1 @@
-<%= raw(@callback) %>(<%= raw(@json) %>);
+<%= @callback %>(<%= raw(@json) %>);
