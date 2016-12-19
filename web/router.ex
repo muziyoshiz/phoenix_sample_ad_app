@@ -23,6 +23,10 @@ defmodule PhoenixSampleAdApp.Router do
   scope "/api", PhoenixSampleAdApp do
     pipe_through :api
 
-    get "/sample.js", SampleController, :index
+    get "/sample1.js", ApiController, :sample1
+    get "/sample2.js", ApiController, :sample2
+    get "/sample3.js", ApiController, :sample3
+    get "/sample4.js", ApiController, :sample4
+    get "/sample5.js", ApiController, :sample5
   end
 end
