@@ -40,3 +40,8 @@ config :phoenix_sample_ad_app, PhoenixSampleAdApp.Repo,
   database: "phoenix_sample_ad_app_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :diver,
+  zk: [quorum_spec: "localhost",
+       base_path: "/hbase"],
+  jvm_args: ["-Djava.awt.headless=true"]

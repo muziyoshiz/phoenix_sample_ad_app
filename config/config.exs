@@ -31,11 +31,11 @@ config :logger, :access_log,
   format: "$date $time\t$message\n",
   metadata_filter: [access_log: true]
 
-config :logger, :debug_log,
-  path: "log/debug.log",
-  level: :debug,
-  format: "$date $time $metadata[$level] $message\n",
-  metadata: [:request_id]
+#config :logger, :debug_log,
+#  path: "log/debug.log",
+#  level: :debug,
+#  format: "$date $time $metadata[$level] $message\n",
+#  metadata: [:request_id]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -17,3 +17,8 @@ config :phoenix_sample_ad_app, PhoenixSampleAdApp.Repo,
   database: "phoenix_sample_ad_app_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :diver,
+  zk: [quorum_spec: "localhost",
+       base_path: "/hbase"],
+  jvm_args: ["-Djava.awt.headless=true"]
