@@ -50,8 +50,13 @@ defmodule PhoenixSampleAdApp.ApiController do
     render conn, "sample.js", json: json, callback: callback
   end
 
-  defp read_configs_from_hbase(_id) do
-    Poison.decode!(~s|["http://ad1.example.com/tag.js","http://ad2.example.com/tag.js"]|)
+  defp read_configs_from_hbase(id) do
+    case Diver.Client.get("settings", id, "f", "urls") do
+      { :ok, value } ->
+        Poison.decode!(value)
+      _ ->
+        []
+    end
   end
 
   defp read_configs_from_hbase_or_cache(id) do
@@ -69,10 +74,14 @@ defmodule PhoenixSampleAdApp.ApiController do
   end
 
   defp write_access_log_to_file(id, callback) do
-    Logger.info("#{id}\t#{callback}", access_log: true)
+    log = Poison.encode!(%{"id" => id, "callback" => callback})
+    Logger.info(log, access_log: true)
   end
 
-  defp write_access_log_to_hbase(_id, _callback) do
-
+  defp write_access_log_to_hbase(id, callback) do
+    # Create unique row key from current time
+    rowkey = Enum.join([id, to_string(:os.system_time(:nano_seconds)), to_string(Enum.random(1..10000))], "_")
+    log = Poison.encode!(%{"id" => id, "callback" => callback})
+    Diver.Client.put("access_logs", rowkey, "f", "log", log)
   end
 end
