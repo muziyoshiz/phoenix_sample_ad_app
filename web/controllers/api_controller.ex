@@ -51,9 +51,15 @@ defmodule PhoenixSampleAdApp.ApiController do
   end
 
   defp read_configs_from_hbase(id) do
-    case Diver.Client.get("settings", id, "f", "urls") do
-      { :ok, value } ->
-        Poison.decode!(value)
+    case Diver.Client.get("settings", id, "f1", "urls") do
+      { :ok, row } ->
+        cond do
+          Enum.count(row) == 1 ->
+            {_row_key, _column_family, _column, value, _timestamp} = Enum.at(row, 0)
+            Poison.decode!(value)
+          true ->
+            []
+        end
       _ ->
         []
     end
@@ -82,6 +88,6 @@ defmodule PhoenixSampleAdApp.ApiController do
     # Create unique row key from current time
     rowkey = Enum.join([id, to_string(:os.system_time(:nano_seconds)), to_string(Enum.random(1..10000))], "_")
     log = Poison.encode!(%{"id" => id, "callback" => callback})
-    Diver.Client.put("access_logs", rowkey, "f", "log", log)
+    Diver.Client.put("access_logs", rowkey, "f1", "log", log)
   end
 end
