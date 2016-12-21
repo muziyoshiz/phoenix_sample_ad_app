@@ -88,6 +88,6 @@ defmodule PhoenixSampleAdApp.ApiController do
     # Create unique row key from current time
     rowkey = Enum.join([id, to_string(:os.system_time(:nano_seconds)), to_string(Enum.random(1..10000))], "_")
     log = Poison.encode!(%{"id" => id, "callback" => callback})
-    Diver.Client.put("access_logs", rowkey, "f1", "log", log)
+    Diver.Client.put("access_logs", rowkey, "f1", ["log"], [log])
   end
 end
