@@ -52,7 +52,7 @@ defmodule PhoenixSampleAdApp.ApiController do
 
   defp read_configs_from_hbase(id) do
     case Diver.Client.get("settings", id, "f1", "urls") do
-      { :ok, row } ->
+      {:ok, row} ->
         cond do
           Enum.count(row) == 1 ->
             {_row_key, _column_family, _column, value, _timestamp} = Enum.at(row, 0)
@@ -67,11 +67,11 @@ defmodule PhoenixSampleAdApp.ApiController do
 
   defp read_configs_from_hbase_or_cache(id) do
     case Cachex.get(:ad_cache, id) do
-      { :missing, _ } ->
+      {:missing, _} ->
         urls = read_configs_from_hbase(id)
         Cachex.set(:ad_cache, id, urls, [ ttl: @local_cache_ttl ])
         urls
-      { :ok, cache } ->
+      {:ok, cache} ->
         cache
       _ ->
         # Unexpected error

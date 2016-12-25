@@ -17,7 +17,7 @@ defmodule PhoenixSampleAdApp do
 
       # Start Cachex
       # Cachex does not support LRU. If you need LRU, use Cachex.touch/2 on every gets.
-      worker(Cachex, [ :ad_cache, [ limit: %Cachex.Limit{ limit: 10000, policy: Cachex.Policy.LRW, reclaim: 0.1 } ] ])
+      worker(Cachex, [:ad_cache, [limit: %Cachex.Limit{limit: 10000, policy: Cachex.Policy.LRW, reclaim: 0.1}]])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
